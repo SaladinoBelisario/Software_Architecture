@@ -109,6 +109,56 @@ If you can't adapt to language to the best interests of the person we are
 talking to you will be able to achieve much more by the way this rule is right.
 
 ## **The Architecture Process**
+
+### Understand the system requirements
+
+Usually defined by the system analyst the system requirements describes 
+what should the system do.
+
+### Understand the non-functional requirements
+
+You need to define technical and service level attributes. 
+
+>ie. Users, Loads, Volumes, Performance, etc.
+
+Much more important than the regular requirements.
+
+### Map the components
+
+Understand the system functionality, represent the tasks of the system
+and communicate your understandings to your client in order to clarify.
+
+### Select a technology stacks
+
+You're going to decide to together with the development team what would
+be the platform on which the system will be based.
+
+Usually there will be more than one technology to be used in most systems.
+
+You will have to select the backend platform, the front end platform, 
+and the data storage platform.
+
+**A wrong technology stack can lead to the failure of the whole system.**
+
+### Design the architecture
+
+This is the heart of your work, the qualities of a well-designed system 
+such as loose coupling, stateless, scaling, caching, messaging and 
+lots more inside-house qualities are used as the building blocks of 
+the architecture.
+
+### Write architecture document
+
+Describes the Process and Architecture, and MUST be relevant for all 
+participants including the business perspective, the project management, 
+etc.
+
+### Support the team
+
+The architecture will change a lot during the development of the system so
+remember to support the team unless you want your work to become only a 
+paperweight.
+
 ## **System Requirements**
 ## **Type of applications**
 ## **Selecting technology stack**
