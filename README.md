@@ -72,6 +72,42 @@ Since there is no formal degree, or a course that qualifies you as an architect.
 The main factor is experience preferably in the technological field.
 
 ## **The Architect's mindset**
+
+### Understand the business
+
+Learn the insides of the business, it's important to be familiar with:
+
+* Weaknesses
+* Strength
+* Competition
+* Growth Strategy
+
+### See for the goals
+
+After we have understood the business and learned all what there is to 
+learn about it instead look at the specific system we're going to walk on.
+
+**Goals** are not requirements, requirements are "What the system should do", 
+goals describe the effect on the organization, remember, you need to think 
+in the big picture, the goals are normally **described by the client**. 
+
+### Identify your client's client
+
+It means that with every decision you make you must ask yourself what 
+will be the effect of this decision on your client's client.
+
+Now you might say that working with the client is a system analyst's job 
+is not the architect's job. This is usually correct but sometimes a project is carried out without 
+the system analyst on board.
+
+### Watch your language
+
+Always keeping in mind what is the thing that really matters to the person 
+you are talking to.
+
+If you can't adapt to language to the best interests of the person we are 
+talking to you will be able to achieve much more by the way this rule is right.
+
 ## **The Architecture Process**
 ## **System Requirements**
 ## **Type of applications**
