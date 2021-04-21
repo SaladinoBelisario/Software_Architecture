@@ -160,6 +160,84 @@ remember to support the team unless you want your work to become only a
 paperweight.
 
 ## **System Requirements**
+
+### Two types of requirements
+
+When talking about system requirements we usually think along the lines of 
+"what the system should do" for functional requirements.
+* Business Flows
+* Business Services
+* User Interfaces
+
+And "what should the system deal with" for non-functional requirements.
+* Performance
+* Load
+* Data Volume
+* Concurrent Users
+* SLA
+
+Non-functional requirements are the most important requirements and that the architecture
+should not under any circumstances designs a system without knowing what is non-functional 
+requirements.
+
+But it is equally important to be aware of the functional requirements. Many architects feel 
+they only need to scheme all the functional requirements and concentrate on the non-functional ones.
+That's a mistake to remember.
+
+> Remember that a good architect must improve the business bottom line.
+
+That won't be possible if you are not sure what the system should do.
+
+### Non-Functional Requirements
+
+You as an architect are going to work directly with the non-functional requirements.
+Some of these are:
+
+* Performance
+  
+  Define what it's "fast" for your client, **always talk in numbers**.
+  * Latency
+
+  "How much time does to accomplish a given single task"
+  * Throughput
+  
+  "How many tasks can be performed in a given time unit"
+  
+* Load
+  
+  Defines the **quantity of work** before system crashing.
+
+  **Always plan for extreme cases!**
+  
+* Data Volume
+
+  How much data the system will accumulate over time.
+
+  Helps with:
+  * Deciding Database Type.
+  * Designing Queries
+  * Store Planning
+  
+* Concurrent Users
+  
+  Remember that load it's different from concurrent users since any given user
+  can perform a wide range of tasks within the application.
+  
+  The rule of thumb for calculate concurrent users is:
+  > Concurrent = Load x 10
+
+* SLA (Service Level Agreement)
+
+  Describes what is required uptime for the system in percentage.
+  > For example:
+  > 
+  > A system with 99.99% SLA
+  > 
+  > 24x365 = 8760 hours/year
+  > 
+  > 8760 x (100-SLA) / 100 = 0.88 hours/year Downtime 
+
+
 ## **Type of applications**
 ## **Selecting technology stack**
 ## **Meet the -illities**
