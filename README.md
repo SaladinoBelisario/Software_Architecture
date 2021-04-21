@@ -239,6 +239,68 @@ Some of these are:
 
 
 ## **Type of applications**
+
+Decided after the requirements are set.
+
+This is an important decision since each type has its own pros and cons. Moreover, 
+once a decision is made it's usually not easy to switch to other types.
+
+The most common application types are web apps, web API, mobile, console, service and desktop.
+
+### Web Apps
+
+* Best suited for systems that require:
+  * User interface
+  * User Initiated Actions
+  * Large Scale
+  * Short, Focused Actions
+* Request-Response based
+
+### Web API
+
+* Usually REST based
+* Return Data, not HTML
+* Very Accessible (Easy to integrate with many languages)
+* Best suited for systems that require:
+  * Data Retrieval ann Store
+  * Client-Initiated Actions
+  * Large Scale
+  * Short, Focused Actions
+* Request-Response based
+
+### Mobile App
+
+* Usually works with Web API
+* Best suited for systems that require:
+  * User Interaction
+  * Front End for Web API
+  * Location (GPS)
+
+### Console application
+
+* No fancy UI
+* Requires technical skills
+* Limited interaction
+* Long-or-Short running process
+* Best suited for systems that require:
+  * Long-running process
+  * Short actions by trained power-users
+  
+### Services
+
+* No User Interface
+* Best suited for systems that require:
+  * Long-running processes in processes that no requires
+  intervention
+    
+### Desktop applications
+
+* Has all the resource in the PC
+* Might connect to the web 
+* Best suited for systems that require:
+  * User-centric actions (Word processing)
+  * Heavy gaming
+
 ## **Selecting technology stack**
 ## **Meet the -illities**
 ## **Component's architecture**
