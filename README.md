@@ -302,6 +302,64 @@ The most common application types are web apps, web API, mobile, console, servic
   * Heavy gaming
 
 ## **Selecting technology stack**
+
+One of the most important and loaded  tasks of the architect, and that is selecting the 
+technology stack of the system.
+
+The selected technology stock will determine what language is.
+
+Platforms and tools will be used during system development and what are the skills required 
+for the development team.
+
+This decision is important for two reasons.
+
+* One, it's irreversible.
+
+  Once you've decided to use specific platform and work has begun on this platform, you can't 
+reverse it. It's not possible to decide three months into development that actually we prefer another 
+platform. Such a decision will result in a complete rewrite of the system and a substantial delay 
+in schedule.
+
+* Two, some decisions are emotional:
+
+  You will encounter situations where the development team would like to a specific platform
+because it's new, sexy and the team across the corridor already uses it.
+
+So this decision has to be made with a **clear mind**, must be **heavily documented** and to
+be a **group effort** and not only was the architect.
+
+### Considerations
+
+When selecting the technology stack, there are some considerations that must be taken into
+account in order to ensure the best platform will be used in the systems.
+
+Let's look at these considerations.
+
+* One: Can perform the required tasks (it must fill the requirements for the system).
+
+* Second: Community, you always want to make sure there is a large active community 
+which discusses the platform and can provide support.
+
+* Third: popularity, although seems a bit superficial, the popularity factor is quite 
+important and popular platforms will usually lead to a small community which will lead
+to a lack of support.
+
+### Backend and Service technology
+
+Our discussion here is about Web apps, Web API, console and services. Let's call all of them
+back backend for the sake of simplicity.
+
+### Frontend technology
+
+Here we are talking about mainly HTML, CSS and some Javascript framework for the Web, 
+also we have Native, Hybrid and Cross-platform technologies for the Mobile apps.
+
+### Data store technology
+
+Selecting the datastore technology is one of the more important decisions you will make 
+in the product design. After all, this is where your precious data is going to be stored
+for the use of the application.
+
 ## **Meet the -illities**
 ## **Component's architecture**
 ## **Design patterns**
