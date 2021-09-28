@@ -566,7 +566,148 @@ brightest minds in the industry.
 application more flexible.
 
 ## **System Architecture**
+
+**Most of the work of a software architect is designing the system architecture**, and you will 
+find yourself using the concept we will discuss in this section, in almost all the systems 
+you will walk on.
+
+We already saw about components, architecture, we talked about layers, logging, dependency,
+injection and more with system architecture we take a higher point of view, and we look at 
+the big picture and in the big picture, we usually ask ourselves these questions.
+
+* How will the system work under heavy load?
+
+* What will happen is the system will crash at this exact moment in the business flow?
+
+* How complicated can be the update process and more?
+
+The system architecture includes the following aspects:
+
+* One, defining the software components or services that together composes the system.
+* Two defining the way these components communicate with each other.
+* Three, designing the various capabilities of the system, namely scalability, redundancy, 
+performance, manageability and more.
+
+### Loose coupling
+
+When talking about loose coupling in system architecture we talk about making sure the 
+various components or services are not strongly tied to other components.
+
+The reasoning for this is again quite similar to the loose coupling inside components. If 
+services will be coupled to other services, then every time the service is changed in the model
+system, this happens a lot, this change might affect other services that use it.
+
+By loosely coupling the services, we ensure the independence of each of the services and make 
+sure they can be modified with minimal impact on other services, if at all. This will make our
+system much more flexible and of course, very easy to maintain.
+
+In general, loose coupling in services means that the fact that a service is implemented in a
+specific platform or exposes specific API will not force other services to use the same platform.
+
+In addition, loose coupling also means that changes in the service API, such as if URL or
+its parameters, will have minimal to no effect on the services.
+
+### Stateless
+
+The stateless architectural pattern is probably one of the most important patterns in software 
+architecture.
+
+>"...if I had to single out one pattern as the one you must implement, it probably will be the
+> Stateless pattern."
+> -- <cite>Memi Lavi, Senior Software Architect & Consultant</cite>
+
+**The application state is stored in only two places, the data store and the user interface, 
+if there is any. No state is stored in the application code.**
+
+Always make you architecture stateless, there are almost no scenarios which justifies stateful
+architecture, and you probably will never encounter them. This is the best way to support
+scalability and redundancy in your system, and you should definitely use it.
+
+### Caching
+
+Using cashing, **we bring data closer to its consumer so that its retrieval will be faster**.
+
+The cache is another layer that usually sits between the data storage and the business logic 
+that stores data in a way that makes it very easy and fast to retrieve.
+
+Cache engines usually stored data in memory, thus making the retrieval extremely fast.
+
+Search engines such as Redis saves the data to disk periodically but still retrieving the 
+data is done against a memory storage cache engines, often some trade-offs when compared to 
+more traditional databases. Cache, trades reliability for performance, data stored in memory
+is more volatile and will be lost in case of a server crash.
+
+Now, as architects, we must be able to determine whether, when and how to use cash in our 
+system and for that, let's just define the type of data that we would want to cache.
+The rule of thumb goes like this: **Cache should hold data that is frequently accessed 
+and readily modified**.
+
+In general, we can say there are two types of cache:
+
+* In-memory, In-process cache
+* Distributed cache
+
+### Messaging
+
+The term messaging refers to the means of communication between the various services in the system.
+
+Note that the messaging selection is not exclusive. We can often find systems with various
+messaging methods, each used for different proposals.
+
+Let's see the criteria:
+
+* The first concern is, of course, performance. We will always prefer a faster method of messaging.
+
+* Next is message size. Indeed, most systems do not require large messages between services, 
+but sometimes it is useful.
+
+* Next criterion is the execution model. Some messaging platform requires a quick response
+model which has its limitations, and some enable long-running processes to execute.
+
+* Another important criterion is the feedback and reliability, and by feedback I mean the ability to
+determine whether the messaging has failed and if it is the ability to perform some corrective
+action. Not all messaging methods reportes status and this is definitely an important 
+consideration.
+
+* The last criterion is the complexity of implementation. If a messaging platform requires 
+a lot of development effort that is something we would like to know beforehand.
+
+Most common messaging methods:
+
+* REST API.
+* HTTP push notifications.
+* Queue
+* File-based or Database-based
+
+### Logging and Monitoring
+
+In software there's a rule of thumb about system reliability, your system would fail, the
+question is what's going to happen when it fails.
+
 ## **External considerations**
+
+### Deadlines
+
+Deadlines are a major factor when designing architecture, when deciding on the architectural 
+patterns we are going to use, we must be an even vaguely how long will it take to implement 
+them and how does it relate to the project's deadlines.
+
+### Existing Dev team skills
+
+When selecting the technology stack, which is one of the most important parts of designing
+a system, always factor in the existing team knowledge and skills, deciding on a technology
+stack that the team is not familiar with might cause two problems:
+
+* Delay
+* Low Quality
+
+### IT support
+
+One of the biggest temptations when designing the architecture is to recommend various tools 
+for the architectural aspects, tools like Queue engines, business flow managers, NoSQL
+databases and more are quite common recommendations for modern day architectural problems.
+Those tools, however,  **need someone who is familiar with them and can maintain them.**
+
 ## **Architecture Document**
 ## **Case study**
 ## **Advanced topics**
