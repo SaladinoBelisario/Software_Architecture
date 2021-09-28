@@ -547,6 +547,24 @@ performance data and find out which method performed poorly and which ones are
 blazingly fast.
 
 ## **Design patterns**
+
+The basic definition is that design patterns are a collection of general reusable solutions
+to common problems in software design when writing software. There are a lot of small problems
+that you will find yourself dealing with frequently, questions like how to communicate between 
+classes or how to initialize interface implementations or how to access data stores and lots 
+more questions. Almost every software developer has to answer somewhere along the lines. Design
+patterns are a set of solutions or patterns that strive to answer those questions and provide a
+well-defined pattern or template for those problems.
+
+Using design patterns, you will gain the following benefits:
+
+* The pattern is already tested and used by a lot of developers. There is no need to reinvent 
+the wheel, and you can reuse solutions that were already formulated and implemented by the 
+brightest minds in the industry.
+
+* Design patterns will often make your code easier to read and modify, thus making the
+application more flexible.
+
 ## **System Architecture**
 ## **External considerations**
 ## **Architecture Document**
