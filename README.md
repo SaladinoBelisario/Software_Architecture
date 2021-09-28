@@ -2,7 +2,7 @@
 
 ## **What is a Software Architect**
 
-### Diferences between Developer and Architect:
+### Differences between Developer and Architect:
 * Developer knows what CAN be done.
 * Architect knows what SHOULD be done.
 
@@ -64,7 +64,7 @@ A good architect MUST know how to code, and there are some reasons for that:
 ### Academic degrees and Career Path
 
 There is no dedicated degree to architecture in software, so don't really need
-a specific one, however, a Computer Science degree won't hurt. Additionally
+a specific one, however, a Computer Science degree won't hurt. Additionally,
 there are some courses and certifications like TOGAF but are more geared towards
 Enterprise Architecture rather than Software Architecture.
 
@@ -361,7 +361,191 @@ in the product design. After all, this is where your precious data is going to b
 for the use of the application.
 
 ## **Meet the -illities**
+
+The _"-illities"_ are a group of quality attributes that defines the applications capabilities, 
+almost all those quality attributes of a name that ends with _illity_.
+
+Quality attribute is an attribute of the system that describes a specific capability that is
+not related to a specific functional requirement. If that sounds similar to no functional 
+requirements, it's not a coincidence. Quality attributes are closely tied to non-functional
+requirements, and they describe what technical capability should be used in order to fulfill 
+the non-functional requirement.
+
+### Scalability
+
+Scalability is the ability of the application to support **adding computing resources in order 
+to support additional load without any interruption** to the applications' activity.
+
+### Manageability
+
+Manageability, the ability to manage the application. 
+
+What does it mean? Simply put, it's **the ability to know what's going on with the application**
+at any given time and to take actions that will improve its walk.
+
+For example, a manageable application will constantly report its status to monitoring agents 
+and let them know when errors occur, when there is an exceptionally high load, when the room is
+becoming dangerously high and so on.
+
+### Modularity
+
+Modularity is one of the more important quality attributes out there, making your application
+modules will really help you along the road. It will minimize the effort needed to maintain the
+application and make it much more flexible for changes.
+
+So what exactly is the modular system? Simply speaking, a model, a system is a system that is
+built from small, **well-defined building blocks** that can be changed or replaced without affecting
+the whole system.
+
+### Extensibility
+
+Extensibility, insisting that implementing extensibility or an extensible system is a system 
+that in its **functionality can be extended without modifying its existing code**.
+
+### Testability
+
+Testability is the attribute that defines **how easy it is to test the application**.
+
 ## **Component's architecture**
+
+When talking about software architecture, we actually talk about two levels of architecture.
+
+The first is the **components' architecture**. This is the architecture of the individual 
+components and this is a topic of this section. The components' architecture deals with the
+various inner components of the code, the way they interact with each other and how to make 
+it fast and easy to maintain.
+
+The second level is the **architecture of the whole system**, this kind of architecture deals
+with the bigger picture and make sure the system is scalable, reliable, fast and easy to maintain.
+
+In this section we'll discuss components' architecture.
+
+### Layers
+
+A good software component will always have layers.
+
+The layers in software component represent a horizontal functionality of the code in the layers.
+
+Now what does it mean? Traditionally, social components perform three basic actions:
+
+* One, expose the sort of functionality through some kind of interface. This is usually done via
+API or user interface, depending on the type of the application.
+
+* Two, execute logic or the data that is received from the user. Again, they are API or user 
+interface. This logic often includes validation, processing, additional calculation's
+enrichment and more.
+
+* And three, save the data into the data store and retrieve data from the data store.
+
+Now these reactions are usually represented as layers when every label has its own name 
+in software components architecture. These labels are called **user interface or UI** if the 
+component has a user interface or **service interface (SI)**, if the component exposes API,
+**business logic or BL** and **data access layer or DAL**.
+
+#### Purpose or Layers
+
+* Forces well-formed and focused code.
+* Ensures modular design
+
+In order to develop a good layered architecture there are some concepts that must be followed.
+
+* One, Code Flow, which means a layer can call only a layer that is directly benefit in the 
+code. What this means is that, for example, the code in the SI layer can call only a code in
+the BL layer never occurred in the DAL layer. In addition, a code can never call a code in
+layer above it. For example, the DAL code will never call a code in the BL.
+
+* Second, Loose Coupling. A loosely coupled system is one:
+
+  1. In which components are weakly associated (have breakable relationship) with each other,
+  and so, changes in one component least affect existence or performance of another component.
+  2. In which each of its components has, or makes use of, little or no knowledge of the 
+  definitions of other separate components. Subareas include the coupling of classes,
+  interfaces, data, and services.
+
+### Interfaces
+
+Basically, an interface is a contract that declares the signatures of an implementation. The
+interface states that given a piece of code that should do a specific task, its methods will
+look in a specific way.
+
+There is a saying in the software architecture field that goes like this:
+
+**New is glue**, what it means is that whenever you see a new keyboard, you know there is a
+close to a strong coupling between those two classes. **And this is something you want to avoid**.
+
+### DI
+
+Dependency injection is defined in Wikipedia as a technique whereby one object supplies the 
+dependencies of another object.
+
+### SOLID
+
+The SOLID, this acronym coined by Bob Martin in the year 2000, represents five code design
+principles that, when implemented, make the code easy to understand, Flexible and maintainable.
+
+SOLID stands for: 
+
+* Single responsibility principle. Each class, module or even method should have one and only
+one responsibility, or in other words, a single, well-defined functionality in this 
+functionality should be fully encapsulated within this class or module.
+
+* Open-closed Principle. States that a software entity should be open for extension, but 
+closed for modification, what this means is that in order to change behavior of a software
+entity, for example, class, we would need to modify its code and then recompile and redeployed, 
+but we will have means to extend its functionality without touching the code.
+
+* Liskov substitution principle. States that if _S_ is a subtype of _T_, objects of type 
+_T_ may be replaced with objects of type _S_ without altering any of the desired properties 
+of the program.
+
+* Interface segregation principle. This principle states that many client-specific
+interfaces are better than one general-purpose interface. 
+
+* Dependency inversion principle. Is also known as dependency injection, you can see the 
+definition in the previous section.
+
+### Naming conventions
+
+Naming conventions are a set of rules that define how do we name various code elements, such
+as classes, methods, variables, constant and more, the role of naming conventions is to make
+our code more readable and easy to understand.
+
+Note that naming conventions are not enforced by compilers and the code will work perfectly 
+without using any convention. But a code without conventions will be messy and hard to
+work with.
+
+### Exception handling
+
+One of the most important aspects of a well written component is its exception handling.
+
+Best practices:
+
+* Only catch exception if you have something to do with it. (Logging does not count).
+  Examples:
+  * Rolling back a transaction.
+  * Retry.
+  * Wrap the exception.
+* Catch only specific exceptions. Example:
+  * SQLException instead of Exception
+* Use try-catch on the smallest code fragment possible.
+  * Locate the code fragments that may rise exceptions and use try-catch on them.
+
+### Logging
+
+No matter how simple the code is or how urgent is the system, never ignore the logging.
+
+A good system uses logging for two purposes:
+
+* One, to track errors. If there are any exceptions during the system's activity, the system
+will write to those exceptions to the log, complete with all the relevant details; 
+full error messages, StackTraces, inner exceptions, user details and so on.
+
+* The second purpose is to gather data logs should not be used only for exceptions, but to 
+collect and store operational data on the system. For example, using logging, you can find out 
+which model is the most visited by users and which one is less popular. You can store
+performance data and find out which method performed poorly and which ones are
+blazingly fast.
+
 ## **Design patterns**
 ## **System Architecture**
 ## **External considerations**
