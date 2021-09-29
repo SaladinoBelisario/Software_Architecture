@@ -709,6 +709,155 @@ databases and more are quite common recommendations for modern day architectural
 Those tools, however,  **need someone who is familiar with them and can maintain them.**
 
 ## **Architecture Document**
+
+In this document, the architect describes the architecture that was designed as well as various 
+requirements; functional and nonfunctional, the technology stack and more.
+
+The architecture document is a cornerstone of the application development, and **no development
+should begin before an architectural document is created** and the developer fully grasped
+its contents.
+
+This document is the center of the architectural work, although not the only thing you will do.
+It's extremely important.
+
+This document will include all the insights produced while working on the architecture.
+This will help you in the future for justifying decisions that we made earlier in the process.
+
+### Goals 
+
+First and foremost, the architectural document is a foundation of the development effort of 
+the system. It describes what should be developed and how, as a rule of thumb, no lines of code 
+should be created before the development team read through the architectural document and make 
+sure they fully understand what should be done and how.
+
+The document outlines the technology stack into various components and services that comprise 
+the system and how do they communicate with each other, without this knowledge, the development 
+team have no idea what should be developed when following the document. The team should be 
+able to develop a well thought of, fully documented, first secure, reliable and easy to 
+maintain system. This cannot be accomplished when such a document is not present.
+
+### Audience
+
+Its real audience is almost everyone involved in the system, including the project manager, 
+the CTO, if there is any, the QA leader and of course, the developers.
+
+### Document's structure
+
+#### Background and Overview
+
+This is a short section, **one page of max** and its target audience is also the **team and
+management members.**
+
+You should describe briefly the system you are walking on from a business point of view, the 
+section to describe at minimum the main role of the system. If it replaces an old system 
+describe why the old ones should be replaced and what is expected business impact.
+
+The section is incredibly important and for a few reasons. First, it displays your point of 
+view of the system. If someone has some comments to make on it or if an error was found, 
+it's better to have an opportunity to correct it as soon as possible.
+
+The section should not have any technical details or architectural terms. No technical services, 
+no programming languages, no clouds, nothing. **Just a simple text describing what the 
+system should do from the end user point of view.**
+
+#### Requirements
+
+This is also a short section, usually **no more than one page** usually lists in its target 
+audience is also the **team and management members**.
+
+In this section, we are going to describe the various requirements from the system.
+
+There are two important reasons for including the requirements in the architecture document.
+First, similar to the background section, this section is included in the document to allow 
+the readers to comment on the requirements and to make sure everyone is well aware of
+what the system should do and under what conditions it's supposed to work.
+
+This is a great opportunity for you to **validate your understanding of the system and make
+sure that whatever you design solves an actual problem for the customer.**
+
+Second, remember that the architecture is designed against a well-defined requirement.
+A lot of the architectural characteristics such as redundancy, messaging, data storage and
+more are designed in light of a specific requirement.
+
+#### Executive Summary
+
+Its length is usually a few pages, usually **no more than three**, and its audience, as you can
+guess, is mainly **management, meaning the CEO, CTO and project manager**.
+
+**The goal of the executive summary is to provide a very high level view of the architecture
+using simple words and not too many technical terms, thus boosting the management confidence 
+in working with you.**
+
+Tips:
+
+* Use charts and diagrams
+* Write it AFTER the rest of the document
+* Use well-known technical terms - sparsely!
+* Do NOT repeat yourself
+
+#### Architecture overview
+
+This section is usually a long one and can reach to **up to 10 pages**. **Its audience is a 
+development team and the QA Lead**.
+
+The architectural overview section provides a high level view of the system's architecture.
+Its goal is to present the architecture to the team and to explain its structure and logic.
+This section does not deep dive into the specifics of any component of the architecture.
+
+This section has usually three parts. The first part of this section gives a general 
+description of the design architecture. This part lays the foundation of the architecture 
+by describing its type and the reasoning behind it and the major non-functional requirements.
+
+The second part is a high level diagram of the architecture. This diagram describes the 
+general concept of the architecture using the various services, data stores and interactions 
+so that the reader will comprehend what the various components of the architecture are and what
+is the responsibility of each one.
+
+The third and last part of the overview section is the walkthrough of the diagram. In this 
+part you will describe the values part of the diagram in the role verbally. This part walks
+through the diagram and explains each and every component in it. It describes in simple 
+words what is the exact role of the component, what is its functionality and what interactions 
+it has with each and every other component. In addition, it describes the data that is stored 
+in the component data store, if there is one. This part is extremely important since the 
+diagram cannot convey all the intricacies of the architecture. It's important to include any
+logic details that you think will be relevant, such as the component users, expected load,
+future extensions and more.
+
+#### Components' Drill-Down
+
+This section **describes the components that take part in the whole architecture as described 
+in the Architecture or Overview section.** 
+
+**There is no actual limit to the length of this section. Its audience is development team 
+and QA Lead.**
+
+Well, this section goes through the various components depicted in the architectural overview 
+and describes them in length.
+
+For each component there should be four subsections in the document:
+
+* First, the role of the component in the architecture.
+This is basically a short recap of the description founding architectural overview section.
+
+* Second, the technology stack, this subsection should describe in detail what technologies 
+will be used in developing the component. This is subsection should first lay out the various
+parts in the component that the technology should be selected, for example, datastore, backend 
+and front end. And then for each one of them, the selected technology should be described.
+
+  > We already discussed the problems you should expect when trying to decide on the stack that 
+  will be used in the system. For this reason, it is extremely important that the technology
+  stack subsection will be extremely detailed and even more important include the rationale 
+  behind the selection.
+
+* Third is a components' architecture. This section describes the architecture of the 
+component. It complements architecture overview that describes the bigger picture by going 
+into each and every component and detailing what exactly it should do and how.
+
+* The last subsection is development instructions. This is usually a small subsection no more
+than half page containing bulleted list of concrete development instructions. These instructions
+should point out specific guidelines that are not part of the architecture, but still relevant
+for the developers.
+
 ## **Case study**
 ## **Advanced topics**
 ## **Soft skills**
