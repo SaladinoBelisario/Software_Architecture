@@ -1035,5 +1035,165 @@ allow fast and efficient querying.
 For our system we're going to need another component, a Handler component to validate, parse and 
 store the data. Additionally, we're going to use a centralized logging system.
 
+### Choosing messaging methods
+
+Let's begin with the receiver, the receiver, as its name implies, receives the messages from
+the IoT devices. In this case, the messaging method is actually dictated by the way the 
+various devices send their messages.
+
+To find out how they do we will go back to the client.
+
+After a few phone calls, she comes back to us with the answer.
+
+The devices communicate via HTTP using the POST verb to send the update. Well, that's great.
+It means our receiver just became a standard run-of-the-mill Web API application with rest
+API as its interface.
+
+Let's move on to the handler. Now here things begin to get a little complicated. As you probably
+remember, the handler's role is to validate and pass the messages received by the receiver.
+It's only reason for existence is to offload the tasks from the receiver, which should focus 
+on receiving the messages and releasing the requests. After the handler handles the message, it
+should store it in the data store for later use. It looks like the best mechanism here is QUEUE.
+
+Last but not least, the logging service. Remember, we need the logs produced by other services 
+to be sent to the logging service for aggregation. Logs tend to be quite massive, and we can 
+expect the various services to produce a huge number of log records every hour. In order to be
+friendly with cloud services, and achieve the performance needed we are going to use a QUEUE.
+
+### Designing the logging service
+
+Well, the reason we are starting with this service is twofold.
+
+* First, we want to emphasize that logging is important. Many developers and sadly, architects
+treat logging as an afterthought. But this is the wrong way to handle it. Logging is one of the
+cornerstones of every application and therefore should be treated as any other service.
+
+* Second, we want to build all our services in a way that already includes logging and not
+adding it later. For that, we will need the logging service ready so the services can
+communicate.
+
+Here are the steps we need to take for the components drill-down:
+
+* First, decide on the kind of application, is it Web app, service, desktop? 
+* Second, decide on the technology stack of the component
+* Third, design the architecture.
+
+The logging service does not wait for any request. It is always on and once in a while 
+pulls data from the queue.
+
+So let's see how this stacks up against the application types we know.
+
+So first, Web apps and Web API, they are both off the table since, as we just said, the 
+logging service is not based on the only request response model, but is always online and
+initiating its own activities.
+
+It's definitely not mobile application. It runs on the server and not on the client.
+
+What about console? Well, it looks like a good fit. Console applications are best suited for
+long-running processes while offering limited user interface. This is exactly what we need
+from our logging service. So this is a great candidate.
+
+Next is a service. Remember that services are quite similar to consult with two important
+distinctions. They offer no UI at all and are managed by some kind of service manager. 
+So it looks like the logging service can also be a service.
+
+Last is desktop application, which of course is not relevant for the logging service since 
+it runs on the server.
+
+So we are left with console up and service.
+
+Which one is better? Well, actually there is no definite answer it, and it depends mainly on
+personal taste.
+
+OK, so we have the application type, next, the technology stack, as you probably remember,
+when deciding on the tech stack, we first need to define what are the elements in the 
+component that need to be selected in all service. There are two such elements, the 
+components code and the data store.
+
+Let's begin with the code. Since the logging service is going to be a service, we do not have 
+a lot of requirements for the technology stack, we need the code to be able to access the 
+Queue API and store data in a data storage. In addition, there are no special requirements 
+about the performance. Of course, we want it to be fast, but there is no specific 
+requirement that limits us here. This stack can be .Net, .Net Core, Java and MySQL, Python and
+MySQL, etc.
+
+OK, great. So we have the technology stack. Now let's design architecture.
+
+Remember our section about layered architecture, how we say that in most cases this is 
+the go-to architecture of every component? Let's see if it fits here. As you probably remember 
+later, the architecture has these three layer user interface or service interface, business
+logic and data access that right to the data store.
+
+As our applications doesn't have a UI what we are going to do is tweak the classic layered
+pattern and modify the top layer to be a polling layer. This layer is responsible for
+accessing the queue and retrieving the local code to be handled by the business layer.
+
+The polling layer runs a timer, which polls the queue every few seconds. If new records are 
+returned from the queue, the polling will send them to the business logic. This layer
+validates them and make sure no garbage has been sent. If everything is OK, it sends them 
+to the data access level, which sends them to the database. And that basically is the 
+architecture of the logging service.
+
+### Designing the receiver
+
+So first, what kind of application is your service? Well, this is an easy one. We said the
+devices send the messages via HTTP using the REST protocol. So the evident conclusion is 
+that the service is a Web API which exposes wrist endpoints.
+
+We already decided the logging service is going to be based in the .NET, and we will need a 
+perfect reason to divert from this decision. Using multiple technologies in a single 
+application can create a lot of headaches if done for the wrong reasons. So let's see if
+there is any good reason NOT to continue with.
+
+So does .NET Core good support for Web API applications? The answer is a resounding yes.
+
+OK, so it looks like there is no reason not to use .NET Core and this is what we will do.
+
+Remember what our service is supposed to do with the messages? It's going to put them
+in the queue. That's right. There is no data for this service.
+
+Well, you can argue that queue is some kind of data, but in reality, we don't treat it 
+that way, but as a method for passing messages from one point to another. So while our service
+definitely needs service interface, which is what the devices will talk to and the business 
+logic which will validate the messages we need to substitute the data access layer with
+another layer. In this case, we will create a new layer called queue handling layer, 
+which will take care of the various tasks of working with the queue, mainly adding 
+the message to the queue.
+
+The logging would be a cross-cutting concern, so it would be a vertical implementation.
+
+### Designing Handler service
+
+One of the major factors that will influence the handler design is the fact that the message
+has to be handled are waiting in the queue after being placed there by the receiver.
+
+As far as our handler service is similar to our logging service he service is going to be a
+Windows service.
+
+By now we already have two services for which we determined the technology stack, the logging 
+service and the receiver in both we went for .NET Core. Since it looks like there is no real
+reason to select other technology for we can be quite comfortable in using .NET Core to.
+
+And now to the architecture. We are going to use a traditional layered architectural
+pattern here, same as in other services. Let's examine what layers are relevant here.
+
+First service interface. Well, we don't have one. This service does not expose any API.
+It is always active and initiates the call to the queue, it's not waiting for requests for
+multiple services. So this layer, instead of exposing API, will orchestrate the work 
+against the queue. Specifically, this layer is responsible for timing the polling of 
+the queue and executing the actual polling. Let's call this layer polling, same as in the
+logging service.
+
+Next layer is the business logic layer. And yes, the service definitely needs such a layer.
+This is responsible for validating and passing the messages, which are typical jobs for
+business logic. Now note that in the real world app, we would have discussed a plugin mechanism
+to allow dynamic loading of validators in parcels for specific messages types.
+
+And last but not least, the data access layer. This is an extremely important player in the 
+service, and it's responsible for setting the handle messages into the data store.
+
+And of course, let's add the logging engine, which is similar to the one we used in the 
+receiver is vertical and accessible by all the layers.
+
 ## **Advanced topics**
 ## **Soft skills**
