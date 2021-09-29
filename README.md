@@ -859,5 +859,181 @@ should point out specific guidelines that are not part of the architecture, but 
 for the developers.
 
 ## **Case study**
+
+This is not a toy system specifically designed to make your life easier, but a real world
+application used by real customer solving real data and cost millions to design, develop and
+deploy.
+
+>The system we are talking about is for a young, fictitious startup called IOT. Our startup 
+develops a dashboard system that brought in almost three times the status of the IoT devices
+its clients are using and managing. For example, smartphones, which are becoming more and 
+more ubiquitous, has a lot of IoT devices. Think about the thermostats, light bulbs, routers,
+cameras, electric switches, refrigerators and lots more. Each one of them has its own app 
+and can be managed from a smartphone, but wouldn't be easier to get a unified view of all
+those devices on a single screen? 
+
+**This is what IoT is doing with this application!** It collects status information from
+registered IoT devices and formats the data to visually pleasing dashboard, allowing you, 
+the customer to know exactly what is going on with your devices. In addition, the customer 
+can execute some predefined queries to access more information about the devices.
+
+It's important to note that for phase one of the system, the customer is not adding or 
+updating any data, the status info is received directly from the devices in the field.
+The data is just presented to the customer. Another important aspect is that the lunch
+customers will be entered into the system manually by the salespeople following an intensive
+verification process to prevent data leaks. Because of that, the system does not have to
+have a registration process, and you can assume the devices are already registered.
+
+**You are the architect of the system, and it's your job to design the architecture so that 
+your two application will boost the company's business, leading it eventually to a successful 
+IPO.**
+
+### Defining the requirements
+
+The first thing you should do as an architect is to define the requirements, these requirements
+are very important for your work, and they dictate what architecture will look like.
+
+You probably remember there are two types of requirements, functional requirements and 
+non-functional requirements.
+
+Now the functional requirements are well-defined. In this case, it looks like the system 
+analyst did a good job, and it's quite clear what the system should do. Let's summarize
+the functional requirements in a short bullet:
+
+* Receive status from IoT devices.
+* Store the updates for future use.
+* Query the updates.
+
+Now let's go to the more interesting part, the non-functional requirements.
+
+**What we know:**
+
+* Messages are received from IoT devices
+  * Probably **a lot** of messages
+  * Affects the load
+  * Affects the data volume
+
+These factors are translated into two questions we need to ask.
+
+> First, how many concurrent messages should the system expect in peak time?
+
+> And second, what is the total number of expected messages per month?
+
+In addition to make our calculations more accurate
+
+> We should also ask what is the average size of a message?
+
+* **Messages in peak time: 500**
+* **Messages per month: 15.000.000**
+* **Average size of a message: 300 bytes**
+
+Now, 15 million messages per month with average size of 300 bytes per message.
+
+Give us roughly **4500 megabytes per month**. Let's multiply this by 12 to get the yearly number.
+
+And we are looking at **54 gigabytes per year**.
+
+This is good. 54 gigabytes in today's storage is not a lot, and almost every database 
+can handle it easily. And by that we're calculating the data volume non-functional 
+requirements, which is **_54 GIGABYTES ANUALLY_**.
+
+The load, however, is a completely different story with five hundred concurrent messages.
+This is a quite busy system.
+
+Next thing we need to know is how tolerant is the system for message loss?
+
+Sure, we cannot lose any message, but let's think about it. This system receives its status 
+updates. Each device sends updates every few seconds. What really happens when a message is lost?
+Not much, actually. A few seconds later, another message will arrive with new update, which
+will anyway make the previous message obsolete.
+
+So the message lost non-functional requirement can be defined as 99 percent. Note that in this
+kind of non-functional requirement, there is a huge difference between 100 percent and 99 percent.
+
+OK, next, the next question we need to ask is:
+
+> How many users will the system have?
+
+> How many concurrent users should we expect?
+
+The client expects the system to have a total of **2 million users** three years from now with 
+no more than **40 concurrent users**.
+
+Now it's important to understand what concurrent users mean. It does not mean how many users 
+are currently using the system, but rather how many users are actively accessing the service.
+This distinction is important.
+
+When a user looks at the dashboard, he uses the system but does not access the server.
+The dashboard is already on the user's screen, so the server does nothing when calculating load.
+We are interested only in the actual work the server is doing. So we define concurrent users
+as a number of users that actually access the server on the same time.
+
+With this information we can calculate the load:
+
+* **Load: 540 concurrent requests**
+
+The last question we need to ask is:
+
+> What is the maximum downtime allowed?
+
+Whe discuss three different levels of SLA: Silver, Gold and Platinum. Platinum level, which is
+what most of the clients choose, dictates that the system should be fully stateless, easily
+scaled out and utilized extensive logging and monitoring. There is no point in discussing 
+specific uptime numbers such as 97 percent versus 99 percent.
+
+### Mapping the components
+
+The next task of mapping the requirement is mapping the components in this task, we decide 
+what are the components that take part in our application, right. Remembering that the 
+component is an autonomous piece of code that runs in its own process and has its own compute
+resources.
+
+Now, there is an important distinction here. We are looking at two completely different tasks, 
+receiving messages and responding to client requests. These two tasks perform separate actions,
+have different non-functional requirements and walk against separate entities because of the 
+natural choice here is to separate these two tasks to two separate components, one that is 
+responsible for receiving the messages, let's call it receiver and one that waits for user
+requests, which will be called in for provider or simply info since info provider is a little
+too long.
+
+There is a very important aspect that is hiding here. We know the receiver is going to work 
+under heavy load, 500 concurrent requests. That means that one of the important aspect of
+the receiver is that it needs to release the message update requests as fast as possible, 
+because for every millisecond it works on a specific message, there are more messages waiting
+to be processed. And we don't want to reach a thread starvation situation, meaning the service
+will not have enough resources to handle the waiting requests, and it will start throwing 
+exceptions.
+
+We will need to go to the client and ask what is the exact format of the messages and what 
+processing is required on them.
+
+Two days later, she comes back with the following answer:
+
+> There are four types of IoT devices. Each one of them has its own message format.
+Three of them use JSON format and one, which is an old one, uses a fixed format string.
+In addition, most of the messages must be validated because the device software be might be
+buggy, and we cannot trust it blindly.
+
+So we now know the receiver has the following tasks. 
+
+* One, receives the message, obviously. 
+* Two, validate the message. 
+* Three, parts of the message and convert it to a unified format
+* Four, save it to the data store.
+
+Let's talk a little on the third task.
+
+This task is super important as it makes our data independent of each source, meaning when we
+will create the data, it will always look the same and be of the same format regardless of
+its source. No matter from which device the status update was received, the data is fully 
+accessible to the client and there is no need to formatted while querying.
+
+This concept is extremely important in systems that receive data from different sources, each
+with its own format, the data must be stored in a unified format, regardless of its origin, to
+allow fast and efficient querying.
+
+For our system we're going to need another component, a Handler component to validate, parse and 
+store the data. Additionally, we're going to use a centralized logging system.
+
 ## **Advanced topics**
 ## **Soft skills**
