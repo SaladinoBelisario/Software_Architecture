@@ -1304,25 +1304,25 @@ over them. This is called influence without authority.**
 
 Some skills that you would need to consider as an architect are:
 
-* Listening. One of the key factors in a successful teamwork is the ability to listen and to
+* **Listening.** One of the key factors in a successful teamwork is the ability to listen and to
 assume you are not the smartest person in the room.
 
-* Criticism. Your walk is going to be criticized probably heavily, you will be questioned on 
+* **Criticism.** Your walk is going to be criticized probably heavily, you will be questioned on 
 almost any design element in your architecture and will be asked to explain the logic behind it.
 
-* Be smart, not right. Being smart means doing the thing that will help you achieve your goal
+* **Be smart, not right.** Being smart means doing the thing that will help you achieve your goal
 instead of doing the thing that will make you feel right.
 
-* Organizational politics. Many times, in order to be a real successful architect and in
+* **Organizational politics.** Many times, in order to be a real successful architect and in
 order to leave a mark, you will have to be well aware of the organizational politics.
 
-* Public speaking. Architects specifically must be able to speak in front of a large audience.
+* **Public speaking.** Architects specifically must be able to speak in front of a large audience.
 Remember, architects usually have no formal authority over developers, system analysers or project
 managers. If an architect wants to influence, she should utilize his speaking skills. In 
 addition, architects are going to take part in many meetings. Some of them are critical to
 the project's success and if their input is crucial. So as an architect, you have to be able 
 to stand in front of an audience and deliver a convincing, effective speech.
 
-* Learning. Always keep learning. We live in a dynamic world. In the soft/tech world is even 
+* **Learning.** Always keep learning. We live in a dynamic world. In the soft/tech world is even 
 more so things are changing in a blink of an eye forever that we are all the rage just
 three years ago are now completely forgotten.
