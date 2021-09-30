@@ -1195,5 +1195,94 @@ service, and it's responsible for setting the handle messages into the data stor
 And of course, let's add the logging engine, which is similar to the one we used in the 
 receiver is vertical and accessible by all the layers.
 
+### Designing info service
+
+The last service system is info service. So first, let's decide on the application type here.
+Well, that's actually an easy one. We have a service that should be accessed by our client 
+in order to perform some queries. That's a textbook for Web API service.
+
+Now, the technology stack, here to the decision is quite easy. We already decided to use .NET Core 
+for the receiver service, which is also a Web API, and there is no real reason to pick other 
+technology for the info service.
+
+Now to the architecture. We need a service interface, obviously, we definitely need a 
+business logic to validate the requests. And of course, we need a data accessible to 
+access the database and retrieve the data. And let's not forget the logging. 
+
+So is that all? Well, not exactly.
+
+One of the important steps in the architecture phase is to define the exact methods of the API.
+Now, we didn't do it in the receiver service since the methods were dictated by the devices.
+But here we are in a different situation, and we can decide what actions we want to expose 
+as part of the API.
+
+So after discussing it with the client, it looks like what really interested the end users
+are two types of information, current status of devices and past event. Also, end users want 
+to see the status of a specific device, as well as a high level view of all the devices in a
+specific smartphone.
+
+So that means our app should have the following functionality:
+
+* Get all the updates for specific devices for a given time range
+* Get the updates for a specific device, for a given time range
+* Get the current status of all the devices in a specific house
+* Get the current status of a specific device.
+
+When designing API what really matters are usually two main factors:
+
+* The API path
+* The return code and contents
+
 ## **Advanced topics**
+
+### Microservices
+
+Microservices are all the rage right now. You can't have an architectural discussion 
+without this term coming up sooner or later, usually sooner. 
+
+But what is actually microservices? Well, put simply, a microservices based architecture is an
+architecture in which the values functionalities are implemented as separate, loosely coupled
+services that interact with each other using standard lightweight protocol.
+
+To understand the motivation for microservices let's go back to the primer microservices days.
+In these ancient times, application were built as a monolith, meaning all the functionalities
+will run in a single process, usually built using the three layers architecture.
+
+But there are some inherent problems with microservices systems, one, because the application
+is executed in a single process. Then, if there is an exception in a single component, the 
+whole process comes crashing down every bug, every case can render the application unusable.
+
+Two, Every time we need to update the application, we need to update the whole code.
+We cannot replace just a single component because again, we run in a single process with
+a single executable.
+
+Three, we are limited to one development platform. We cannot combine, say, Java and PHP in 
+the same process.
+
+And last compute resources are not optimized, if our application performs some heavy-duty 
+calculations that require a lot of resources, but also to fulfill some lightweight queering, 
+we cannot assign computing resources to the specific code that requires it.
+
+The microservices, architecture claims to solve all of these issues. Remember, with 
+microservices, the application is actually a collection of small, lightweight and loosely 
+coupled services.
+
+### Event Sourcing
+
+Management in traditional applications, entities are stored in the database, usually as a
+collection of attributes, with the application needed to update a specific attribute.
+It simply accesses this attribute and modify its value, with Event Sourcing we handle it 
+differently. When implementing events we do not modify attributes of the entity, rather we 
+track events related to the entity.
+
+### CQRS
+
+So what exactly is CQRS?
+
+Well, CQRS stands for Command Query Responsibility Segregation. What it actually means is 
+this: while in traditional systems, the same database is used for retrieving and updating data
+in CQRS based system these are separated to two different databases, meaning we have one
+database for storing data in one database for retrieving the data into some kind of service
+to think between them.
+
 ## **Soft skills**
